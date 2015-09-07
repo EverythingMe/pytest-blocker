@@ -7,7 +7,7 @@ def pytest_configure(config):
     """Register the "run" marker."""
 
     config_line = (
-        'bloccker: specify a blocker test. '
+        'blocker: specify a blocker test. '
         'See also: http://pytest-blocker.readthedocs.org/'
     )
     config.addinivalue_line('markers', config_line)
