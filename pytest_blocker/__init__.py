@@ -19,6 +19,6 @@ def pytest_runtest_makereport(item, call, __multicall__):
     if report.failed and item.get_marker('blocker'):
         skip_reason = "Blocker test {0} failed, skipping remaining tests.".format(item.name)
         for test in item.session.items:
-            if test.name != item.name and test._request:
-                test._request.applymarker(pytest.mark.skipif(True, reason=skip_reason))
+            if test.name != item.name:
+                test.add_marker(pytest.mark.skipif(True, reason=skip_reason))
     return report
