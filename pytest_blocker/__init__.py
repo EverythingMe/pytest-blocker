@@ -13,9 +13,11 @@ def pytest_configure(config):
     config.addinivalue_line('markers', config_line)
 
 
-def pytest_runtest_makereport(item, call, __multicall__):
+@pytest.hookimpl(hookwrapper=True)
+def pytest_runtest_makereport(item, call):
     # get current report status from _pytest.runner.pytest_runtest_makereport
-    report = __multicall__.execute()
+    outcome = yield
+    report = outcome.get_result()
     if report.failed and item.get_marker('blocker'):
         skip_reason = "Blocker test {0} failed, skipping remaining tests.".format(item.name)
         for test in item.session.items:
