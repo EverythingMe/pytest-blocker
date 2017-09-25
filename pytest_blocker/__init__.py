@@ -23,4 +23,3 @@ def pytest_runtest_makereport(item, call):
         for test in item.session.items:
             if test.name != item.name:
                 test.add_marker(pytest.mark.skipif(True, reason=skip_reason))
-    return report
